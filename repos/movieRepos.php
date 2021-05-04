@@ -23,8 +23,9 @@ class MovieRepos extends Db {
         ";
 
         $statement = $this->db->prepare($sql);
+        $statement->execute();
         
-        return $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
     
     /**
@@ -35,12 +36,14 @@ class MovieRepos extends Db {
         $sql = "
             SELECT * 
             FROM exo_mvc.movies 
-            WHERE id= ?
+            WHERE id_movie = ?
         ";
 
         $statement = $this->db->prepare($sql);
 
-        return $statement->execute([$id]);
+        $statement->execute([$id]);
+
+        return $statement->fetch(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -50,10 +53,9 @@ class MovieRepos extends Db {
 
         $sql = "
             UPDATE movies
-            SET pseudo = ?,
-            email = ?,
-            password = ?
-            WHERE id_user = ?";
+            SET title = ?,
+            poster = ?,
+            WHERE id_movie = ?";
 
         $statement = $this->db->prepare($sql);
 
@@ -68,13 +70,13 @@ class MovieRepos extends Db {
     public function add($movie) {
 
         $sql = "
-            INSERT INTO movies (pseudo, email, password)
-            VALUES (?, ?, ?)
+            INSERT INTO movies (title, poster)
+            VALUES (?, ?)
         ";
 
         $statement = $this->db->prepare($sql);
 
-        $statement->execute([$movie->pseudo, $movie->email, $movie->password]);
+        $statement->execute([$movie->title, $movie->poster]);
 
         return $this->findOne($this->db->lastInsertId());
     }

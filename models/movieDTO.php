@@ -38,7 +38,7 @@ class MovieDTO {
         return $this->poster;
     }
 
-    public function setIdCritic(int $id_critic) {
+    public function setIdCritic($id_critic) {
         $this->id_critic = $id_critic;
     }
     public function getIdCritic() {

@@ -1,10 +1,9 @@
 <?php include './views/header.php' ;?>
 
-<?php var_dump($movies); die(); ?>
 <p>Page des films :</p>
 
-<?php if(sizeof($movies) > 0) :?>
-    <?php foreach ($movies as $movie): ?>
+<?php if(sizeof($this->movies) > 0) :?>
+    <?php foreach ($this->movies as $movie): ?>
         <p><?= $movie->getTitle() ?></p>
     <?php endforeach ;?>
 <?php endif ;?>

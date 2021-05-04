@@ -18,9 +18,6 @@ class UserService {
 
         $response = $this->userRepos->findAll();
         $users = [];
-
-        var_dump($response);
-        die();
         
         /* Methode qui map la response en liste d utilisateurs dans users */
         foreach ($response as $user) {

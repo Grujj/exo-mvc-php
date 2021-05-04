@@ -25,7 +25,7 @@ class UserRepos extends Db {
         $statement = $this->db->prepare($sql);
         $statement->execute();
         
-        return $statement->fetch(PDO::FETCH_ASSOC);
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
     
     /**
