@@ -5,6 +5,8 @@ use App\Controllers\MainController;
 
 class Main {
 
+    private $param;
+
     public function start() {
 
         /* Condition si pas de parametres */
@@ -18,13 +20,14 @@ class Main {
         else {
            
             /* Recuperation des parametres */
-            $param = $_GET;
+            $this->param = $_GET;
+            
 
             /* Format et instancie le controller passe en parametre */
-            $controller = $this->initController($param);
+            $controller = $this->initController();
 
             /* Recupere l action passe en parametre */
-            $action = $this->extractAction($param);
+            $action = $this->extractAction();
 
             /* Condition si $action existe */
             if(method_exists($controller, $action)) {
@@ -40,20 +43,17 @@ class Main {
     /**
      * Methode qui initialise le controller passe en parametre
      */
-    private function initController($param) {
+    private function initController() {
         
-        $controller = '\\App\\Controllers\\'.ucfirst(array_shift($param)).'Controller';
+        $controller = '\\App\\Controllers\\'.ucfirst(array_shift($this->param)).'Controller';
         return new $controller();
     }
 
     /**
      * Methode qui renvoi la methode a initie de la classe envoyee en parametre
-     * 
-     * @param $param
      */
-    private function extractAction($param) {
-        
-        return (isset($param['action'])) ? array_shift($param) : 'index';
+    private function extractAction() {
+        return (isset($this->param['action'])) ? array_shift($this->param) : 'index';
     }
 
     /**
@@ -61,7 +61,7 @@ class Main {
      */
     private function initAction($controller, $action) {
 
-        (isset($param)) ? $controller->$action($param) : $controller->$action();
+        (isset($this->param)) ? $controller->$action($this->param) : $controller->$action();
     }
 
     /**

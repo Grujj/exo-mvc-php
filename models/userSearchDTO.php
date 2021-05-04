@@ -1,25 +1,15 @@
 <?php 
 namespace App\models;
-class UserDTO {
+class UserSearchDTO {
 
-    private $id_user;
     private $pseudo;
     private $email;
     private $password;
 
-    public function __construct($id_user, $pseudo, $email, $password) {
-        $this->setIdUser($id_user);
+    public function __construct($pseudo, $email, $password) {
         $this->setPseudo($pseudo);
         $this->setEmail($email);
         $this->setPassword($password);
-    }
-
-    public function setIdUser(int $id_user) {
-        $this->id_user = $id_user;
-    }
-
-    public function getIdUser() {
-        return $this->id_user;
     }
 
     public function setPseudo(string $pseudo) {
