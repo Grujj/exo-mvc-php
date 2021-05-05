@@ -20,6 +20,7 @@ class MovieController extends Controller {
      */
     public function index(){
 
+        /* Template a affiche */
         include_once "./views/movie/index.php";
     }
 
@@ -28,8 +29,13 @@ class MovieController extends Controller {
      */
     public function findAll(){
 
-        $this->movies = $this->movieService->findAll();
+        /* Reponse ajoutee au tableau des films */
+        $response = $this->movieService->findAll();
 
+        /* Gestion de la reponse */
+        $this->handleResponse($response);
+
+        /* Template a afficher */
         include_once "./views/movie/index.php";
     }
 
@@ -38,8 +44,13 @@ class MovieController extends Controller {
      */
     public function findOne($request) {
 
-        $this->movies = $this->movieService->findOne($request['id']);
+        /* Reponse recue par le serveur */
+        $response = $this->movieService->findOne($request['id']);
 
+        /* Gestion de la reponse */
+        $this->handleResponse($response);
+
+        /* Template a afficher */
         include_once "./views/movie/index.php";    
     }
 
@@ -48,9 +59,16 @@ class MovieController extends Controller {
      */
     public function add() {
 
+        /* Objet utilise pour la requete au serveur */
         $movieSearch = new MovieSearchDTO($_POST["title"], $_POST['poster']);
-        $this->movies = $this->movieService->add($movieSearch);
 
+        /* Reponse recue par le serveur */
+        $response = $this->movieService->add($movieSearch);
+
+        /* Gestion de la reponse */
+        $this->handleResponse($response);
+
+        /* Template a afficher */
         include_once "./views/movie/index.php";    
     }
 
@@ -59,8 +77,13 @@ class MovieController extends Controller {
      */
     public function update() {
 
-        $this->movies = $this->movieService->update($_POST);
+        /* Reponse recue par le serveur */
+        $response = $this->movieService->update($_POST);
+
+        /* Gestion de la reponse */
+        $this->handleResponse($response);
         
+        /* Template a afficher */
         include_once "./views/movie/index.php";    
     }
 
@@ -69,9 +92,25 @@ class MovieController extends Controller {
      */
     public function delete($request) {
 
+        /* Requete de suppression au serveur */
         $this->movieService->delete($request['id']);
 
+        /* Template a afficher */
         include_once "./views/movie/index.php";    
+    }
+
+    /**
+     * Methode qui gere la reponse recue du serveur
+     */
+    private function handleResponse($response) {
+
+        /* Condition si la reponse est un tableau */
+        if(gettype($response) == "array"){
+            $this->movies = $response;
+        }
+        else {
+            array_push($this->movies, $response);
+        }
     }
 
 

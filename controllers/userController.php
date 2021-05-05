@@ -20,6 +20,7 @@ class UserController extends Controller {
      */
     public function index(){
 
+        /* Template a afficher */
         include_once "./views/user/index.php";
     }
 
@@ -28,8 +29,13 @@ class UserController extends Controller {
      */
     public function findAll(){
 
-        $this->users = $this->userService->findAll();
+        /* Reponse recue par le serveur */
+        $response = $this->userService->findAll();
+        
+        /* Gestion de la reponse */
+        $this->handleResponse($response);
 
+        /* Template a afficher */
         include_once "./views/user/index.php";
     }
 
@@ -38,8 +44,13 @@ class UserController extends Controller {
      */
     public function findOne($request) {
 
-        $this->users = $this->userService->findOne($request['id']);
+        /* Reponse recue par le serveur */
+        $response = $this->userService->findOne($request['id']);
 
+        /* Gestion de la reponse */
+        $this->handleResponse($response);
+
+        /* Template a afficher */
         include_once "./views/user/index.php";    
     }
 
@@ -48,9 +59,16 @@ class UserController extends Controller {
      */
     public function add() {
 
+        /* Objet utilise pour la requete au serveur */
         $userSearch = new UserSearchDTO($_POST["pseudo"], $_POST['email'], $_POST['password']);
-        $this->users = $this->userService->add($userSearch);
 
+        /* Reponse recue par le serveur */
+        $response = $this->userService->add($userSearch);
+        
+        /* Gestion de la reponse */
+        $this->handleResponse($response);
+
+        /* Template a afficher */
         include_once "./views/user/index.php";    
     }
 
@@ -59,8 +77,13 @@ class UserController extends Controller {
      */
     public function update() {
 
-        $this->users = $this->userService->update($_POST);
+        /* Reponse recue par le serveur */
+        $response = $this->userService->update($_POST);
+
+        /* Gestion de la reponse */
+        $this->handleResponse($response);
         
+        /* Template a afficher */
         include_once "./views/user/index.php";    
     }
 
@@ -69,9 +92,25 @@ class UserController extends Controller {
      */
     public function delete($request) {
 
+        /* Requete envoyee au serveur */
         $this->userService->delete($request['id']);
 
+        /* Template a afficher */
         include_once "./views/user/index.php";    
+    }
+    
+    /**
+     * Methode qui gere la reponse recue du serveur
+     */
+    private function handleResponse($response) {
+
+        /* Condition si la reponse est un tableau */
+        if(gettype($response) == "array"){
+            $this->users = $response;
+        }
+        else {
+            array_push($this->users, $response);
+        }
     }
 
 
