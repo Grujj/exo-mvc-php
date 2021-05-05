@@ -1,16 +1,18 @@
 <?php
 
-namespace App\Controllers;
-use App\services\MovieService;
-use App\models\MovieSearchDTO;
+namespace App\Sources\Controllers;
+use App\Sources\Services\MovieService;
+use App\Sources\Models\MovieSearchDTO;
 
 class MovieController extends Controller {
 
+    private $template;
     private $movieService;
     public $movies;
 
     public function __construct() {
 
+        $this->template = "./ressources/views/movie/index.php";
         $this->movieService = new MovieService();
         $this->movies = [];
     }
@@ -21,7 +23,7 @@ class MovieController extends Controller {
     public function index(){
 
         /* Template a affiche */
-        include_once "./views/movie/index.php";
+        include_once $this->template;
     }
 
     /**
@@ -36,7 +38,7 @@ class MovieController extends Controller {
         $this->handleResponse($response);
 
         /* Template a afficher */
-        include_once "./views/movie/index.php";
+        include_once $this->template;
     }
 
     /**
@@ -51,7 +53,7 @@ class MovieController extends Controller {
         $this->handleResponse($response);
 
         /* Template a afficher */
-        include_once "./views/movie/index.php";    
+        include_once $this->template;   
     }
 
     /**
@@ -69,7 +71,7 @@ class MovieController extends Controller {
         $this->handleResponse($response);
 
         /* Template a afficher */
-        include_once "./views/movie/index.php";    
+        include_once $this->template;   
     }
 
     /**
@@ -84,7 +86,7 @@ class MovieController extends Controller {
         $this->handleResponse($response);
         
         /* Template a afficher */
-        include_once "./views/movie/index.php";    
+        include_once $this->template; 
     }
 
     /**
@@ -96,7 +98,7 @@ class MovieController extends Controller {
         $this->movieService->delete($request['id']);
 
         /* Template a afficher */
-        include_once "./views/movie/index.php";    
+        include_once $this->template;
     }
 
     /**

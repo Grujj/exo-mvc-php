@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Core;
-use App\Controllers\MainController;
+use App\Sources\Controllers\MainController;
 
 class Main {
 
@@ -45,7 +45,7 @@ class Main {
      */
     private function initController() {
         
-        $controller = '\\App\\Controllers\\'.ucfirst(array_shift($this->param)).'Controller';
+        $controller = '\\App\\Sources\\Controllers\\'.ucfirst(array_shift($this->param)).'Controller';
         return new $controller();
     }
 

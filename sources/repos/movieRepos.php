@@ -1,5 +1,5 @@
 <?php
-namespace App\repos;
+namespace App\Sources\Repos;
 use App\Core\Db;
 use PDO;
 

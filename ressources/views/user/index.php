@@ -1,4 +1,4 @@
-<?php include './views/header.php' ;?>
+<?php include './ressources/views/header.php' ;?>
 
 <p>Page des utilisateurs :</p>
 
@@ -8,4 +8,4 @@
     <?php endforeach ;?>
 <?php endif ;?>
 
-<?php include './views/footer.php'; ?>
+<?php include './ressources/views/footer.php'; ?>

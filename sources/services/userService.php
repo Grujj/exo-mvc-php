@@ -1,8 +1,8 @@
 <?php
-namespace App\services;
-use App\repos\UserRepos;
-use App\models\UserDTO;
-use App\models\UserSearchDTO;
+namespace App\Sources\Services;
+use App\Sources\Repos\UserRepos;
+use App\Sources\Models\UserDTO;
+use App\Sources\Models\UserSearchDTO;
 class UserService {
 
     private $userRepos;

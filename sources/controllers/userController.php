@@ -1,16 +1,18 @@
 <?php
 
-namespace App\Controllers;
-use App\services\UserService;
-use App\models\UserSearchDTO;
+namespace App\Sources\Controllers;
+use App\Sources\Services\UserService;
+use App\Sources\Models\UserSearchDTO;
 
 class UserController extends Controller {
 
+    private $template;
     private $userService;
     public $users;
 
     public function __construct() {
 
+        $this->template = "./ressources/views/user/index.php";
         $this->userService = new UserService();
         $this->users = [];
     }
@@ -21,7 +23,7 @@ class UserController extends Controller {
     public function index(){
 
         /* Template a afficher */
-        include_once "./views/user/index.php";
+        include_once $this->template;
     }
 
     /**
@@ -36,7 +38,7 @@ class UserController extends Controller {
         $this->handleResponse($response);
 
         /* Template a afficher */
-        include_once "./views/user/index.php";
+        include_once $this->template;
     }
 
     /**
@@ -51,7 +53,7 @@ class UserController extends Controller {
         $this->handleResponse($response);
 
         /* Template a afficher */
-        include_once "./views/user/index.php";    
+        include_once $this->template;   
     }
 
     /**
@@ -69,7 +71,7 @@ class UserController extends Controller {
         $this->handleResponse($response);
 
         /* Template a afficher */
-        include_once "./views/user/index.php";    
+        include_once $this->template;   
     }
 
     /**
@@ -84,7 +86,7 @@ class UserController extends Controller {
         $this->handleResponse($response);
         
         /* Template a afficher */
-        include_once "./views/user/index.php";    
+        include_once $this->template;   
     }
 
     /**
@@ -96,7 +98,7 @@ class UserController extends Controller {
         $this->userService->delete($request['id']);
 
         /* Template a afficher */
-        include_once "./views/user/index.php";    
+        include_once $this->template;    
     }
     
     /**

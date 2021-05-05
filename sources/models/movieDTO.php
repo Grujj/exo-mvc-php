@@ -1,5 +1,5 @@
 <?php 
-namespace App\models;
+namespace App\Sources\Models;
 class MovieDTO {
 
     private $id_movie;

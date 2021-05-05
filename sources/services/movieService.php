@@ -1,8 +1,8 @@
 <?php
-namespace App\services;
-use App\repos\MovieRepos;
-use App\models\MovieDTO;
-use App\models\MovieSearchDTO;
+namespace App\Sources\Services;
+use App\Repos\MovieRepos;
+use App\Models\MovieDTO;
+use App\Models\MovieSearchDTO;
 
 class MovieService {
 
