@@ -3,11 +3,11 @@ namespace App\Sources\Models;
 class MovieSearchDTO {
 
     private $title;
-    private $poster;
+    private $poster_src;
 
-    public function __construct($title, $poster) {
+    public function __construct($title, $poster_src) {
         $this->setTitle($title);
-        $this->setPoster($poster);
+        $this->setPosterSrc($poster_src);
     }
 
     public function setTitle(string $title) {
@@ -18,12 +18,12 @@ class MovieSearchDTO {
         return $this->title;
     }
 
-    public function setPoster(string $poster) {
-        $this->poster = $poster;
+    public function setPosterSrc(string $poster_src) {
+        $this->poster_src = $poster_src;
     }
 
-    public function getPoster() {
-        return $this->poster;
+    public function getPosterSrc() {
+        return $this->poster_src;
     }
     
 }

@@ -1,0 +1,82 @@
+/*********************************************************************
+* All site
+**********************************************************************/
+:root {
+    --principalColor: #318b8c;
+}
+body {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+/***********************************************
+* Header
+***********************************************/
+header {
+    display: flex;
+    justify-content: space-between;
+}
+
+header #logo {
+    flex-basis: 40%;
+}
+
+header nav {
+    flex-basis: 40%;
+}
+
+header nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+}
+
+header nav ul li {
+    display: inline-block;
+}
+
+header nav ul li a {
+    text-decoration: none;
+    color: black;
+}
+/***********************************************
+* Header : Hover
+***********************************************/
+header nav ul li:hover a {
+    color: var(--principalColor);
+    text-decoration: underline;
+}
+/***********************************************
+* Movies
+***********************************************/
+h1 {
+    color: var(--principalColor);
+}
+#displayAllMovies .intro {
+    width: 50%;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px dashed var(--principalColor);
+    padding: 1rem;
+}
+
+#displayAllMovies section {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+#displayAllMovies section figure {
+    flex-basis: 33%;
+}
+
+/***********************************************
+* MovieDetails
+***********************************************/
+#displayMovieDetails h1 {
+    text-decoration: underline;
+}
+#displayMovieDetails img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}

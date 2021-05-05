@@ -119,5 +119,10 @@ class UserController extends Controller {
         }
     }
 
+    public function displayFormAddUser() {
+
+        include_once './ressources/views/user/displayFormAddUser.php';
+    }
+
 
 }

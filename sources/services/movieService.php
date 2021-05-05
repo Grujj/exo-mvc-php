@@ -1,8 +1,8 @@
 <?php
 namespace App\Sources\Services;
-use App\Repos\MovieRepos;
-use App\Models\MovieDTO;
-use App\Models\MovieSearchDTO;
+use App\Sources\Repos\MovieRepos;
+use App\Sources\Models\MovieDTO;
+use App\Sources\Models\MovieSearchDTO;
 
 class MovieService {
 
@@ -28,7 +28,7 @@ class MovieService {
         foreach ($response as $movie) {
             
             /* Insere la reponse dans le tableau de retour */
-            array_push($movies, new MovieDTO($movie['id_movie'], $movie['title'], $movie['poster'], $movie['id_critic']));
+            array_push($movies, new MovieDTO($movie['id_movie'], $movie['title'], $movie['poster_src'], $movie['poster_alt'], $movie['id_critic']));
         }
 
         /* Retourne le tableau de film */
@@ -44,7 +44,7 @@ class MovieService {
         $response = $this->movieRepos->findOne($id);
 
         /* Objet utilise pour la reponse */
-        return new MovieDTO($response['id_movie'], $response['title'], $response['poster'], $response['id_critic']);
+        return new MovieDTO($response['id_movie'], $response['title'], $response['poster_src'], $response['poster_alt'], $response['id_critic']);
     }
 
     /**
@@ -53,13 +53,13 @@ class MovieService {
     public function update($request) {
 
         /* Objet utilise pour la requete */
-        $movieDTO = new MovieDTO($request['id_movie'], $request['title'], $request['poster'], $request['id_critic']);
+        $movieDTO = new MovieDTO($request['id_movie'], $request['title'], $request['poster_src'], $request['poster_alt'], $request['id_critic']);
     
         /* Reponse du serveur */
         $response = $this->movieRepos->update($movieDTO);
 
         /* Objet utilise pour la reponse */
-        return new MovieDTO($response['id_movie'], $response['title'], $response['poster'], $response['id_critic']);
+        return new MovieDTO($response['id_movie'], $response['title'], $response['poster_src'], $response['poster_alt'], $response['id_critic']);
     }
 
     /**
@@ -74,7 +74,7 @@ class MovieService {
         $response = $this->movieRepos->add($movieSearch);
 
         /* Objet utilise pour la reponse */
-        return new MovieDTO($response['id_movie'], $response['title'], $response['poster'], $response['id_critic']);
+        return new MovieDTO($response['id_movie'], $response['title'], $response['poster_src'], $response['poster_alt'], $response['id_critic']);
     }
 
     /**

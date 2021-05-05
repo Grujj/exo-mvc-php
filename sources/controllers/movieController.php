@@ -38,7 +38,7 @@ class MovieController extends Controller {
         $this->handleResponse($response);
 
         /* Template a afficher */
-        include_once $this->template;
+        include_once './ressources/views/movie/displayAllMovies.php';
     }
 
     /**
@@ -53,7 +53,7 @@ class MovieController extends Controller {
         $this->handleResponse($response);
 
         /* Template a afficher */
-        include_once $this->template;   
+        include_once './ressources/views/movie/displayMovieDetails.php';  
     }
 
     /**

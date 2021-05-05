@@ -66,14 +66,14 @@ class MovieRepos extends Db {
         $sql = "
             UPDATE movies
             SET title = ?,
-            poster = ?,
+            poster_src = ?,
             WHERE id_movie = ?";
 
         /* Preparation de la requete */
         $statement = $this->db->prepare($sql);
 
         /* Execution de la requete */
-        $statement->execute([$movie->getTitle(), $movie->getPoster()]);
+        $statement->execute([$movie->getTitle(), $movie->getPosterSrc()]);
 
         /* Retourne le film mis a jour */
         return $this->findOne($movie->id);
@@ -94,7 +94,7 @@ class MovieRepos extends Db {
         $statement = $this->db->prepare($sql);
 
         /* Execution de la requete */
-        $statement->execute([$movie->getTitle(), $movie->getPoster()]);
+        $statement->execute([$movie->getTitle(), $movie->getPosterSrc()]);
 
         /* Retourne le film ajoute */
         return $this->findOne($this->db->lastInsertId());

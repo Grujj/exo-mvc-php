@@ -2,10 +2,6 @@
 
 <p>Page des films :</p>
 
-<?php if(sizeof($this->movies) > 0) :?>
-    <?php foreach ($this->movies as $movie): ?>
-        <p><?= $movie->getTitle() ?></p>
-    <?php endforeach ;?>
-<?php endif ;?>
+<a href="index.php?controller=movie&action=findAll">Tous les films</a>
 
 <?php include './ressources/views/footer.php'; ?>
