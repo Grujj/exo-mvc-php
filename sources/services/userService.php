@@ -16,14 +16,21 @@ class UserService {
      */
     public function findAll() {
 
-        $response = $this->userRepos->findAll();
+        /* Initialisation du tableau pour la reponse */
         $users = [];
+
+        /* Reponse du serveur */
+        $response = $this->userRepos->findAll();
+        
         
         /* Methode qui map la response en liste d utilisateurs dans users */
         foreach ($response as $user) {
+
+            /* Insere la reponse dans le tableau de retour */
             array_push($users, new UserDTO($user['id_user'], $user['pseudo'], $user['email'], $user['password']));
         }
 
+        /* Retourne le tableau d utilisateur */
         return $users;
     }
     
@@ -32,7 +39,10 @@ class UserService {
      */
     public function findOne($id) {
 
+        /* Reponse du serveur */
         $response = $this->userRepos->findOne($id);
+
+        /* Objet utilise pour la reponse */
         return new UserDTO($response['id_user'], $response['pseudo'], $response['email'], $response['password']);
     }
 
@@ -41,9 +51,13 @@ class UserService {
      */
     public function update($request) {
 
+        /* Objet utilise pour la requete */
         $userDTO = new UserDTO($request['id_user'], $request['pseudo'], $request['email'], $request['password']);
+        
+        /* Reponse du serveur */
         $response = $this->userRepos->update($userDTO);
 
+        /* Objet utilise pour la reponse */
         return new UserDTO($response['id_user'], $response['pseudo'], $response['email'], $response['password']);
     }
 
@@ -52,9 +66,13 @@ class UserService {
      */
     public function add($request) {
 
+        /* Objet utilise pour la requete */
         $userSearch = new UserSearchDTO($request["pseudo"], $request['email'], $request['password']);
+
+        /* Reponse du serveur */
         $response = $this->userRepos->add($userSearch);
 
+        /* Objet utilise pour la reponse */
         return new UserDTO($response['id_user'], $response['pseudo'], $response['email'], $response['password']);
     }
 
@@ -62,6 +80,8 @@ class UserService {
      * Methode qui supprime un utilisateur
      */
     public function delete($id) {
+
+        /* Requete au serveur */
         $this->userRepos->delete($id);
     }
 }

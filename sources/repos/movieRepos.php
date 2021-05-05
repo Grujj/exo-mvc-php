@@ -4,6 +4,8 @@ use App\Core\Db;
 use PDO;
 
 class MovieRepos extends Db {
+
+    /* Lien a la base de donnees */
     private $db;
 
     public function __construct() {
@@ -17,14 +19,19 @@ class MovieRepos extends Db {
      */
     public function findAll() {
 
+        /* Requete SQL */
         $sql = "
             SELECT * 
             FROM exo_mvc.movies 
         ";
 
+        /* Preparation de la requete */
         $statement = $this->db->prepare($sql);
+
+        /* Execution de la requete */
         $statement->execute();
         
+        /* Retourne les films trouves */
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
     
@@ -33,16 +40,20 @@ class MovieRepos extends Db {
      */
     public function findOne($id) {
 
+        /* Requete SQL */
         $sql = "
             SELECT * 
             FROM exo_mvc.movies 
             WHERE id_movie = ?
         ";
 
+        /* Preparation de la requete */
         $statement = $this->db->prepare($sql);
 
+        /* Execution de la requete */
         $statement->execute([$id]);
 
+        /* Retourne le film trouve */
         return $statement->fetch(PDO::FETCH_ASSOC);
     }
 
@@ -51,16 +62,20 @@ class MovieRepos extends Db {
      */
     public function update($movie) {
 
+        /* Requete SQL */
         $sql = "
             UPDATE movies
             SET title = ?,
             poster = ?,
             WHERE id_movie = ?";
 
+        /* Preparation de la requete */
         $statement = $this->db->prepare($sql);
 
-        $statement->execute([$movie->pseudo, $movie->email, $movie->password, $movie->id]);
+        /* Execution de la requete */
+        $statement->execute([$movie->getTitle(), $movie->getPoster()]);
 
+        /* Retourne le film mis a jour */
         return $this->findOne($movie->id);
     }
 
@@ -69,15 +84,19 @@ class MovieRepos extends Db {
      */
     public function add($movie) {
 
+        /* Requete SQL */
         $sql = "
             INSERT INTO movies (title, poster)
             VALUES (?, ?)
         ";
 
+        /* Preparation de la requete */
         $statement = $this->db->prepare($sql);
 
-        $statement->execute([$movie->title, $movie->poster]);
+        /* Execution de la requete */
+        $statement->execute([$movie->getTitle(), $movie->getPoster()]);
 
+        /* Retourne le film ajoute */
         return $this->findOne($this->db->lastInsertId());
     }
 
@@ -86,13 +105,16 @@ class MovieRepos extends Db {
      */
     public function delete($id) {
 
+        /* Requete SQL */
         $sql = "
             DELETE FROM `movies`
             WHERE id_movie = ?
         ";
 
+        /* Preparation de la requete */
         $statement = $this->db->prepare($sql);
         
+        /* Execution de la requete */
         $statement->execute([$id]);
     }
 }

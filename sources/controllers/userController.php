@@ -61,17 +61,21 @@ class UserController extends Controller {
      */
     public function add() {
 
-        /* Objet utilise pour la requete au serveur */
-        $userSearch = new UserSearchDTO($_POST["pseudo"], $_POST['email'], $_POST['password']);
+        if(isset($_POST)){
 
-        /* Reponse recue par le serveur */
-        $response = $this->userService->add($userSearch);
+            /* Reponse recue par le serveur */
+            $response = $this->userService->add($_POST);
         
-        /* Gestion de la reponse */
-        $this->handleResponse($response);
+            /* Gestion de la reponse */
+            $this->handleResponse($response);
 
-        /* Template a afficher */
-        include_once $this->template;   
+            /* Template a afficher */
+            include_once $this->template;  
+        }
+        else {
+
+            include_once './ressources/views/user/displayFormAddUser.php';
+        }
     }
 
     /**

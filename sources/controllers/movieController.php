@@ -61,11 +61,8 @@ class MovieController extends Controller {
      */
     public function add() {
 
-        /* Objet utilise pour la requete au serveur */
-        $movieSearch = new MovieSearchDTO($_POST["title"], $_POST['poster']);
-
         /* Reponse recue par le serveur */
-        $response = $this->movieService->add($movieSearch);
+        $response = $this->movieService->add($_POST);
 
         /* Gestion de la reponse */
         $this->handleResponse($response);

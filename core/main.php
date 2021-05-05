@@ -22,7 +22,6 @@ class Main {
             /* Recuperation des parametres */
             $this->param = $_GET;
             
-
             /* Format et instancie le controller passe en parametre */
             $controller = $this->initController();
 
