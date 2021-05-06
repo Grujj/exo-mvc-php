@@ -2,19 +2,20 @@
 
 namespace App\Sources\Controllers;
 use App\Sources\Services\UserService;
-use App\Sources\Models\UserSearchDTO;
 
 class UserController extends Controller {
 
     private $template;
     private $userService;
     public $users;
+    public $message;
 
     public function __construct() {
 
         $this->template = "./ressources/views/user/index.php";
         $this->userService = new UserService();
         $this->users = [];
+        $this->message = "";
     }
 
     /**
@@ -38,7 +39,7 @@ class UserController extends Controller {
         $this->handleResponse($response);
 
         /* Template a afficher */
-        include_once $this->template;
+        include_once './ressources/views/user/displayAllUsers.php';
     }
 
     /**
@@ -61,20 +62,32 @@ class UserController extends Controller {
      */
     public function add() {
 
-        if(isset($_POST)){
+        /* Traitement du formulaire */
+        if(isset($_POST) && sizeof($_POST) > 0){
 
             /* Reponse recue par le serveur */
             $response = $this->userService->add($_POST);
-        
-            /* Gestion de la reponse */
-            $this->handleResponse($response);
+            
+            /* Condition si ajout fait */
+            if($response != null) {
 
-            /* Template a afficher */
-            include_once $this->template;  
+                /* Gestion de la reponse */
+                $this->handleResponse($response);
+
+                /* Template a afficher */
+                include_once $this->template; 
+            }
+            else {
+
+                $this->message = "Email indisponible";
+
+                include_once './ressources/views/user/formAddUser.php';
+            }
+             
         }
         else {
 
-            include_once './ressources/views/user/displayFormAddUser.php';
+            include_once './ressources/views/user/formAddUser.php';
         }
     }
 
@@ -101,8 +114,8 @@ class UserController extends Controller {
         /* Requete envoyee au serveur */
         $this->userService->delete($request['id']);
 
-        /* Template a afficher */
-        include_once $this->template;    
+        /* On reaffiche la liste d utilisateur */
+        $this->findAll();
     }
     
     /**
@@ -119,9 +132,48 @@ class UserController extends Controller {
         }
     }
 
-    public function displayFormAddUser() {
+    /**
+     * Methode qui gere la connection au compte d un utilisateur
+     */
+    public function connect() {
 
-        include_once './ressources/views/user/displayFormAddUser.php';
+        /* Traitement du formulaire */
+        if(isset($_POST) && sizeof($_POST) > 0){
+
+            $response = $this->userService->findByEmail($_POST);
+
+            /* Condition si ajout fait */
+            if($response != null) {
+
+                session_start();
+
+                /* Gestion de la reponse */
+                $_SESSION['user'] = $response;
+
+                /* Template a afficher */
+                include_once './ressources/views/home.php'; 
+            }
+            else {
+
+                $this->message = "Utilisateur introuvable";
+
+                include_once './ressources/views/user/formAddUser.php';
+            }
+        }
+        else {
+
+            include_once './ressources/views/user/formConnection.php';
+        }
+    }
+
+    /**
+     * Methode qui gere la deconnection d un utilisateur
+     */
+    public function disconnect() {
+
+        session_destroy();
+
+        include_once './ressources/views/home.php';
     }
 
 

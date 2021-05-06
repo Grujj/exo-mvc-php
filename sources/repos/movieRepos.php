@@ -86,15 +86,15 @@ class MovieRepos extends Db {
 
         /* Requete SQL */
         $sql = "
-            INSERT INTO movies (title, poster)
-            VALUES (?, ?)
+            INSERT INTO movies (title, poster_src, poster_alt, critic, description)
+            VALUES (?, ?, ?, ?, ?)
         ";
 
         /* Preparation de la requete */
         $statement = $this->db->prepare($sql);
 
         /* Execution de la requete */
-        $statement->execute([$movie->getTitle(), $movie->getPosterSrc()]);
+        $statement->execute([$movie->getTitle(), $movie->getPosterSrc(), $movie->getPosterAlt(), $movie->getCritic(), $movie->getDescription()]);
 
         /* Retourne le film ajoute */
         return $this->findOne($this->db->lastInsertId());

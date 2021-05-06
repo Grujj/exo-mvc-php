@@ -3,6 +3,7 @@
 <main id="displayAllMovies">
     <h1>Page des films :</h1>
     <p class="intro">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eveniet similique perferendis enim nesciunt assumenda aliquam rerum laboriosam dolores nulla soluta, adipisci provident porro ipsa quaerat distinctio asperiores consequuntur aspernatur nihil.</p>
+    <h2><a href="index.php?controller=movie&action=add">Ajouter un film</a></h2>
     <section>
         <?php if(sizeof($this->movies) > 0) :?>
             <?php foreach ($this->movies as $movie): ?>
@@ -13,8 +14,9 @@
                         <figcaption><h2><?= $movie->getTitle() ?></h2></figcaption>
                     </div>
                     <div>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque incidunt fuga nisi quidem aut ab a aliquid itaque atque facilis. Aliquam dolor aspernatur aperiam quo architecto, soluta voluptas placeat assumenda.</p>
+                        <p><?= $movie->getDescription() ?></p>
                         <a href="index.php?controller=movie&action=findOne&id=<?= $movie->getIdMovie() ?>">En savoir plus</a>
+                        <a href="index.php?controller=movie&action=delete&id=<?= $movie->getIdMovie() ?>">Supprimer ce film</a>
                     </div>
                     
                 </figure>   

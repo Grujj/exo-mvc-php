@@ -66,14 +66,33 @@ class UserService {
      */
     public function add($request) {
 
-        /* Objet utilise pour la requete */
-        $userSearch = new UserSearchDTO($request["pseudo"], $request['email'], $request['password']);
+        /* Requete qui recupere tous les emails */
+        $emails = $this->findAllEmails();
+        $emailsToCheck = [];
 
-        /* Reponse du serveur */
-        $response = $this->userRepos->add($userSearch);
+        foreach ($emails as $email) {
+            array_push($emailsToCheck, $email['email']);
+        }
 
-        /* Objet utilise pour la reponse */
-        return new UserDTO($response['id_user'], $response['pseudo'], $response['email'], $response['password']);
+        /* Condition si l email est deja utilise */
+        if(!in_array($request['email'] , $emailsToCheck)) {
+            return $this->addUser($request);
+        }
+        else {
+            return null;
+        }
+    }
+
+    private function addUser($request) {
+
+         /* Objet utilise pour la requete */
+         $userSearch = new UserSearchDTO($request["pseudo"], $request['email'], $request['password']);
+        
+         /* Reponse du serveur */
+         $response = $this->userRepos->add($userSearch);
+
+         /* Objet utilise pour la reponse */
+         return new UserDTO($response['id_user'], $response['pseudo'], $response['email'], $response['password']);
     }
 
     /**
@@ -83,5 +102,32 @@ class UserService {
 
         /* Requete au serveur */
         $this->userRepos->delete($id);
+    }
+
+    /**
+     * Methode qui recupere tous les emails
+     */
+    public function findAllEmails() {
+
+        /* Requete au serveur */
+        return $this->userRepos->findAllEmails();
+    }
+
+    /**
+     * Methode qui recupere tous les emails
+     */
+    public function findByEmail($request) {
+
+        /* Objet utilise pour la requete */
+        $userSearch = new UserSearchDTO("", $request['email'], $request['password']);
+        
+        /* Reponse du serveur */
+        $response = $this->userRepos->findByEmail($request['email']);
+        
+        if($response != null)
+            /* Objet utilise pour la reponse */
+            return new UserDTO($response['id_user'], $response['pseudo'], $response['email'], $response['password']);
+        else
+            return null;
     }
 }

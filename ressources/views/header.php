@@ -22,9 +22,20 @@
                 <li>
                     <a href="index.php?controller=movie">Films</a>
                 </li>
+                
                 <li>
-                    <a href="#">Utilisateurs</a>
+                    <a href="index.php?controller=user">Utilisateurs</a>
                 </li>
+
+                <?php if(!isset($_SESSION['user'])) :?>
+                    <li>
+                        <a href="index.php?controller=user&action=connect">Se connecter</a>
+                    </li>
+                <?php elseif(isset($_SESSION['user'])) :?>
+                    <li>
+                        <a href="index.php?controller=user&action=disconnect">Déconnexion</a>
+                    </li>
+                <?php endif ;?>
             </ul>
         </nav>
     </header>

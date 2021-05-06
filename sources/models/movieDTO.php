@@ -6,14 +6,16 @@ class MovieDTO {
     private $title;
     private $poster_src;
     private $poster_alt;
-    private $id_critic;
+    private $critic;
+    private $description;
 
-    public function __construct($id_movie, $title, $poster_src, $poster_alt, $id_critic) {
+    public function __construct($id_movie, $title, $poster_src, $poster_alt, $critic, $description) {
         $this->setIdMovie($id_movie);
         $this->setTitle($title);
         $this->setPosterSrc($poster_src);
         $this->setPosterAlt($poster_alt);
-        $this->setIdCritic($id_critic);
+        $this->setCritic($critic);
+        $this->setDescription($description);
     }
 
     public function setIdMovie(int $id_movie) {
@@ -48,11 +50,20 @@ class MovieDTO {
         return $this->poster_alt;
     }
 
-    public function setIdCritic($id_critic) {
-        $this->id_critic = $id_critic;
+    public function setCritic($critic) {
+        $this->critic = $critic;
     }
-    public function getIdCritic() {
-        return $this->id_critic;
+    
+    public function getCritic() {
+        return $this->critic;
+    }
+
+    public function setDescription($description) {
+        $this->description = $description;
+    }
+
+    public function getDescription() {
+        return $this->description;
     }
     
 }

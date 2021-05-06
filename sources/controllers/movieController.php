@@ -2,7 +2,6 @@
 
 namespace App\Sources\Controllers;
 use App\Sources\Services\MovieService;
-use App\Sources\Models\MovieSearchDTO;
 
 class MovieController extends Controller {
 
@@ -61,14 +60,23 @@ class MovieController extends Controller {
      */
     public function add() {
 
-        /* Reponse recue par le serveur */
-        $response = $this->movieService->add($_POST);
+        /* Condition pour traiter le formulaire */
+        if(isset($_POST) && sizeof($_POST) > 0) {
 
-        /* Gestion de la reponse */
-        $this->handleResponse($response);
+            /* Reponse recue par le serveur */
+            $response = $this->movieService->add($_POST);
 
-        /* Template a afficher */
-        include_once $this->template;   
+            /* Gestion de la reponse */
+            $this->handleResponse($response);
+
+            /* Template a afficher */
+            include_once $this->template;
+        }
+        else {
+            
+            include_once './ressources/views/movie/formAddMovie.php';
+        }
+           
     }
 
     /**

@@ -23,12 +23,11 @@ class MovieService {
         /* Reponse du serveur */
         $response = $this->movieRepos->findAll();
         
-
         /* Methode qui map la response en liste d utilisateurs dans users */
         foreach ($response as $movie) {
             
             /* Insere la reponse dans le tableau de retour */
-            array_push($movies, new MovieDTO($movie['id_movie'], $movie['title'], $movie['poster_src'], $movie['poster_alt'], $movie['id_critic']));
+            array_push($movies, new MovieDTO($movie['id_movie'], $movie['title'], $movie['poster_src'], $movie['poster_alt'], $movie['critic'], $movie['description']));
         }
 
         /* Retourne le tableau de film */
@@ -44,7 +43,7 @@ class MovieService {
         $response = $this->movieRepos->findOne($id);
 
         /* Objet utilise pour la reponse */
-        return new MovieDTO($response['id_movie'], $response['title'], $response['poster_src'], $response['poster_alt'], $response['id_critic']);
+        return new MovieDTO($response['id_movie'], $response['title'], $response['poster_src'], $response['poster_alt'], $response['critic'], $response['description']);
     }
 
     /**
@@ -53,13 +52,13 @@ class MovieService {
     public function update($request) {
 
         /* Objet utilise pour la requete */
-        $movieDTO = new MovieDTO($request['id_movie'], $request['title'], $request['poster_src'], $request['poster_alt'], $request['id_critic']);
+        $movieDTO = new MovieDTO($request['id_movie'], $request['title'], $request['poster_src'], $request['poster_alt'], $request['critic'], $request['description']);
     
         /* Reponse du serveur */
         $response = $this->movieRepos->update($movieDTO);
 
         /* Objet utilise pour la reponse */
-        return new MovieDTO($response['id_movie'], $response['title'], $response['poster_src'], $response['poster_alt'], $response['id_critic']);
+        return new MovieDTO($response['id_movie'], $response['title'], $response['poster_src'], $response['poster_alt'], $response['critic'], $response['description']);
     }
 
     /**
@@ -68,13 +67,13 @@ class MovieService {
     public function add($request) {
 
         /* Objet utilise pour la requete */
-        $movieSearch = new MovieSearchDTO($request["title"], $request['poster']);
+        $movieSearch = new MovieSearchDTO($request["title"], $request['poster_src'], $request['poster_alt'], $request['critic'], $request['description']);
        
         /* Reponse du serveur */
         $response = $this->movieRepos->add($movieSearch);
 
         /* Objet utilise pour la reponse */
-        return new MovieDTO($response['id_movie'], $response['title'], $response['poster_src'], $response['poster_alt'], $response['id_critic']);
+        return new MovieDTO($response['id_movie'], $response['title'], $response['poster_src'], $response['poster_alt'], $response['critic'], $response['description']);
     }
 
     /**

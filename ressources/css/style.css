@@ -1,15 +1,20 @@
 /*********************************************************************
 * All site
 **********************************************************************/
+
 :root {
     --principalColor: #318b8c;
 }
+
 body {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    max-width: fit-content;
 }
+
 /***********************************************
 * Header
 ***********************************************/
+
 header {
     display: flex;
     justify-content: space-between;
@@ -37,19 +42,24 @@ header nav ul li a {
     text-decoration: none;
     color: black;
 }
+
 /***********************************************
 * Header : Hover
 ***********************************************/
+
 header nav ul li:hover a {
     color: var(--principalColor);
     text-decoration: underline;
 }
+
 /***********************************************
 * Movies
 ***********************************************/
+
 h1 {
     color: var(--principalColor);
 }
+
 #displayAllMovies .intro {
     width: 50%;
     text-align: center;
@@ -67,14 +77,23 @@ h1 {
 
 #displayAllMovies section figure {
     flex-basis: 33%;
+    text-align: left;
+}
+
+#displayAllMovies section figure img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /***********************************************
 * MovieDetails
 ***********************************************/
+
 #displayMovieDetails h1 {
     text-decoration: underline;
 }
+
 #displayMovieDetails img {
     display: block;
     margin-left: auto;

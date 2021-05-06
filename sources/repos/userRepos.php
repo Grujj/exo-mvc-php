@@ -118,4 +118,44 @@ class UserRepos extends Db {
         /* Execution de la requete */
         $statement->execute([$id]);
     }
+
+    public function findAllEmails() {
+
+        /* Requete SQL */
+        $sql = "
+            SELECT email 
+            FROM exo_mvc.users 
+        ";
+
+        /* Preparation de la requete */
+        $statement = $this->db->prepare($sql);
+
+        /* Execution de la requete */
+        $statement->execute();
+        
+        /* Retourne les utilsateurs trouves */
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Methode qui recupere un utilisateur par le mail
+     */
+    public function findByEmail($email) {
+
+        /* Requete SQL */
+        $sql = "
+            SELECT * 
+            FROM exo_mvc.users 
+            WHERE email = ?
+        ";
+
+        /* Preparation de la requete */
+        $statement = $this->db->prepare($sql);
+
+        /* Execution de la requete */
+        $statement->execute([$email]);
+        
+        /* Retourne les utilsateurs trouves */
+        return $statement->fetch(PDO::FETCH_ASSOC);
+    }
 }
